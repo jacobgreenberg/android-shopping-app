@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">shopping_app</string>
+    <string name="create_an_account">create an account</string>
+    <string name="login">login</string>
+    <string name="welcome">Welcome!</string>
+    <string name="create_account">Create Account</string>
+    <string name="your_email_address">Your email address</string>
+    <string name="password">Password</string>
+    <string name="password_again">Password again</string>
+    <string name="submit">Submit</string>
 </resources>
