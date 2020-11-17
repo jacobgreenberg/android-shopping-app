@@ -52,6 +52,16 @@
             android:layout_height="wrap_content"
             android:text="@string/submit"/>
 
+
+        <TextView
+            android:id="@+id/create_account_error"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/danger"
+            android:visibility="invisible"/>
+
+
     </LinearLayout>
 
 </RelativeLayout>
