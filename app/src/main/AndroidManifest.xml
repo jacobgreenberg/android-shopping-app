@@ -25,6 +25,9 @@
         <activity android:name=".Login">
 
         </activity>
+        <activity android:name=".LoginSuccess">
+
+        </activity>
     </application>
 
 </manifest>

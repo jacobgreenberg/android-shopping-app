@@ -1,22 +1,16 @@
 package dev.prsm.shopping_app;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.net.URL;
-import java.net.URLConnection;
+
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -44,10 +38,10 @@ public class CreateAccount extends AppCompatActivity
             String password = editTextPassword.getText().toString();
             String passwordAgain = editTextPasswordAgain.getText().toString();
 
-            LinkedBlockingQueue queue = new LinkedBlockingQueue<Runnable>();
-            ThreadPoolExecutorCreateAccount taskPool = new ThreadPoolExecutorCreateAccount(
+            LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
+            ThreadPoolExecutorCreateClass taskPool = new ThreadPoolExecutorCreateClass(
                     1,1,
-                    1000, TimeUnit.MILLISECONDS, queue, this );
+                    1000, TimeUnit.MILLISECONDS, queue);
 
 
 
@@ -69,23 +63,23 @@ public class CreateAccount extends AppCompatActivity
         });
     }
 
-    boolean isValidPassword(String password)
-    {
-        // strong
-        if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,15}$"))
-            return true;
-
-        // moderate
-        else if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})"))
-
-        // weak
-        else if (password.matches("^(?=.*[a-z])(?=.*[0-9])(?=.{8,})"))
-
-        // poor
-        else if (password.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})"))
-
-        return false;
-    }
+//    boolean isValidPassword(String password)
+//    {
+//        // strong
+//        if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,15}$"))
+//            return true;
+//
+//        // moderate
+//        else if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})"))
+//
+//        // weak
+//        else if (password.matches("^(?=.*[a-z])(?=.*[0-9])(?=.{8,})"))
+//
+//        // poor
+//        else if (password.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})"))
+//
+//        return false;
+//    }
 
     public static boolean isValidEmail(CharSequence target)
     {
@@ -103,6 +97,8 @@ public class CreateAccount extends AppCompatActivity
                 errorMessage.setText("Email already taken");
             });
 
+        else
+            startActivity(new Intent(this, LoginSuccess.class));
     }
 
     public void displayError(String error, int show)
