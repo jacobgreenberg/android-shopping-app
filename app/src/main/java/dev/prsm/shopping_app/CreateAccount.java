@@ -1,5 +1,6 @@
 package dev.prsm.shopping_app;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -16,6 +17,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class CreateAccount extends AppCompatActivity
 {
@@ -41,16 +44,20 @@ public class CreateAccount extends AppCompatActivity
             String password = editTextPassword.getText().toString();
             String passwordAgain = editTextPasswordAgain.getText().toString();
 
+            LinkedBlockingQueue queue = new LinkedBlockingQueue<Runnable>();
+            ThreadPoolExecutorCreateAccount taskPool = new ThreadPoolExecutorCreateAccount(
+                    1,1,
+                    1000, TimeUnit.MILLISECONDS, queue, this );
+
+
+
             if (isValidEmail(email))
             {
                 if (password.equals(passwordAgain)) //TODO: check password length
                 {
                     displayError("", HIDE);
-                    CreateAccountTask task = new CreateAccountTask(
-                            this,
-                            email,
-                            password);
-                    task.start();
+                    CreateAccountTask task = new CreateAccountTask(this, email, password);
+                    taskPool.execute(task);
                 }
 
                 else
@@ -62,15 +69,40 @@ public class CreateAccount extends AppCompatActivity
         });
     }
 
+    boolean isValidPassword(String password)
+    {
+        // strong
+        if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,15}$"))
+            return true;
+
+        // moderate
+        else if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})"))
+
+        // weak
+        else if (password.matches("^(?=.*[a-z])(?=.*[0-9])(?=.{8,})"))
+
+        // poor
+        else if (password.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})"))
+
+        return false;
+    }
+
     public static boolean isValidEmail(CharSequence target)
     {
         return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 
+    @SuppressLint("SetTextI18n")
     public void updateView(String postReturn)
     {
         if (!postReturn.equals("1"))
-            displayError("Account with this email already exists", SHOW);
+            runOnUiThread(() ->
+            {
+                TextView errorMessage = findViewById(R.id.create_account_error);
+                errorMessage.setTextColor(getResources().getColor(R.color.danger));
+                errorMessage.setText("Email already taken");
+            });
+
     }
 
     public void displayError(String error, int show)
@@ -79,54 +111,9 @@ public class CreateAccount extends AppCompatActivity
         errorMessage.setText(error);
 
         if (show == 1)
-            errorMessage.setVisibility(View.VISIBLE);
+            errorMessage.setTextColor(getResources().getColor(R.color.danger));
 
         else
-            errorMessage.setVisibility(View.INVISIBLE);
+            errorMessage.setTextColor(getResources().getColor(R.color.secondary));
     }
 }
-
-    class CreateAccountTask extends Thread
-    {
-        private final CreateAccount createAccount;
-        private String email = "";
-        private String password = "";
-
-        public CreateAccountTask(CreateAccount fromCreateAccount, String email, String password)
-        {
-            createAccount = fromCreateAccount;
-            this.email = email;
-            this.password = password;
-        }
-
-        public void run()
-        {
-            try
-            {
-                URL url = new URL(CreateAccount.URL);
-                URLConnection connection = url.openConnection();
-                connection.setDoOutput(true);
-                OutputStream outputStream = connection.getOutputStream();
-                OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
-
-                outputStreamWriter.write("email=" + email + "&password=" + password);
-                outputStreamWriter.flush();
-
-                InputStream inputStream = connection.getInputStream();
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-
-                String line;
-                StringBuilder postReturn = new StringBuilder();
-
-                while ((line = bufferedReader.readLine()) != null)
-                    postReturn.append(line);
-
-                createAccount.updateView(postReturn.toString());
-
-            } catch (Exception e)
-            {
-                Log.v("MA", e.getMessage());
-            }
-        }
-    }
