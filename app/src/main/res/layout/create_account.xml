@@ -13,6 +13,7 @@
         android:background="@color/secondary">
 
         <TextView
+            android:id="@+id/create_account_header"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_account"

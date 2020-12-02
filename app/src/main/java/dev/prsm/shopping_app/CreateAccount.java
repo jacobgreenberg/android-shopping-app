@@ -23,6 +23,8 @@ public class CreateAccount extends AppCompatActivity
     public static final String URL =
             "http://jmgreenberg.cs.loyola.edu/shopping_app/create_account.php";
 
+    int passLength = 0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -30,6 +32,7 @@ public class CreateAccount extends AppCompatActivity
         setContentView(R.layout.create_account);
         Button submit = findViewById(R.id.create_account_submit);
         EditText editTextPassword = findViewById(R.id.create_account_password);
+        TextView textViewCreateAccount = findViewById(R.id. create_account_header);
 
         editTextPassword.addTextChangedListener(new TextWatcher()
         {
@@ -45,13 +48,15 @@ public class CreateAccount extends AppCompatActivity
             public void afterTextChanged(Editable editable)
             {
                 if (editable.length() < 4)
-                    editTextPassword.setTextColor(getResources().getColor(R.color.danger));
+                    textViewCreateAccount.setTextColor(getResources().getColor(R.color.danger));
 
                 else if (editable.length() > 4 && editable.length() < 8)
-                    editTextPassword.setTextColor(getResources().getColor(R.color.warning));
+                    textViewCreateAccount.setTextColor(getResources().getColor(R.color.warning));
 
                 else if (editable.length() > 8)
-                    editTextPassword.setTextColor(getResources().getColor(R.color.success));
+                    textViewCreateAccount.setTextColor(getResources().getColor(R.color.success));
+
+                passLength = editable.length();
             }
         });
 
@@ -70,17 +75,25 @@ public class CreateAccount extends AppCompatActivity
                     1000, TimeUnit.MILLISECONDS, queue);
 
 
+
             if (isValidEmail(email))
             {
-                if (password.equals(passwordAgain)) //TODO: check password length
+                if (passLength > 8)
                 {
-                    displayError("", HIDE);
-                    CreateAccountTask task = new CreateAccountTask(this, email, password);
-                    taskPool.execute(task);
+
+                    if (password.equals(passwordAgain))
+                    {
+                        displayError("", HIDE);
+                        CreateAccountTask task = new CreateAccountTask(this, email, password);
+                        taskPool.execute(task);
+                    }
+
+                    else
+                        displayError("Passwords do not match", SHOW);
                 }
 
                 else
-                    displayError("Passwords do not match", SHOW);
+                    displayError("Password length too short", SHOW);
             }
 
             else
