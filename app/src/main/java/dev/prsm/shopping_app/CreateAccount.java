@@ -3,14 +3,16 @@ package dev.prsm.shopping_app;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -27,11 +29,39 @@ public class CreateAccount extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_account);
         Button submit = findViewById(R.id.create_account_submit);
+        EditText editTextPassword = findViewById(R.id.create_account_password);
+
+        editTextPassword.addTextChangedListener(new TextWatcher()
+        {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            { }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
+            {
+
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable)
+            {
+                if (editable.length() < 5)
+                    Log.v("MA", "WEAK");
+
+                else if (editable.length() > 5 && editable.length() < 8)
+                    Log.v("MA", "MODERATE");
+
+                else if (editable.length() > 8)
+                    Log.v("MA", "STRONG");
+
+            }
+        });
 
         submit.setOnClickListener((View v) ->
         {
             EditText editTextEmail = findViewById(R.id.create_account_email);
-            EditText editTextPassword = findViewById(R.id.create_account_password);
             EditText editTextPasswordAgain = findViewById(R.id.create_account_password_again);
 
             String email = editTextEmail.getText().toString();
@@ -42,7 +72,6 @@ public class CreateAccount extends AppCompatActivity
             ThreadPoolExecutorCreateClass taskPool = new ThreadPoolExecutorCreateClass(
                     1,1,
                     1000, TimeUnit.MILLISECONDS, queue);
-
 
 
             if (isValidEmail(email))
@@ -63,23 +92,6 @@ public class CreateAccount extends AppCompatActivity
         });
     }
 
-//    boolean isValidPassword(String password)
-//    {
-//        // strong
-//        if (password.matches("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*])(?=\\S+$).{8,15}$"))
-//            return true;
-//
-//        // moderate
-//        else if (password.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.{8,})"))
-//
-//        // weak
-//        else if (password.matches("^(?=.*[a-z])(?=.*[0-9])(?=.{8,})"))
-//
-//        // poor
-//        else if (password.matches("^(?=.*[A-Z])(?=.*[0-9])(?=.{8,})"))
-//
-//        return false;
-//    }
 
     public static boolean isValidEmail(CharSequence target)
     {
