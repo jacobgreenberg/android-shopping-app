@@ -39,23 +39,19 @@ public class CreateAccount extends AppCompatActivity
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2)
-            {
-
-
-            }
+            { }
 
             @Override
             public void afterTextChanged(Editable editable)
             {
-                if (editable.length() < 5)
-                    Log.v("MA", "WEAK");
+                if (editable.length() < 4)
+                    editTextPassword.setTextColor(getResources().getColor(R.color.danger));
 
-                else if (editable.length() > 5 && editable.length() < 8)
-                    Log.v("MA", "MODERATE");
+                else if (editable.length() > 4 && editable.length() < 8)
+                    editTextPassword.setTextColor(getResources().getColor(R.color.warning));
 
                 else if (editable.length() > 8)
-                    Log.v("MA", "STRONG");
-
+                    editTextPassword.setTextColor(getResources().getColor(R.color.success));
             }
         });
 
