@@ -10,23 +10,31 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:gravity="center"
-        android:background="@color/secondary">
+        android:background="@color/secondary"
+        tools:ignore="UselessParent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/welcome"
-        android:textSize="40sp"
-        android:fontFamily="sans-serif"
-        android:textStyle="bold"
-        android:textColor="@color/primary"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/welcome"
+            android:textColor="@color/dark"
+            android:textSize="60sp"
+            android:textStyle="bold"/>
+
+<!--        <ImageView-->
+<!--            android:layout_width="400dp"-->
+<!--            android:layout_height="150dp"-->
+<!--            android:src="@drawable/aj_logo"-->
+<!--            android:contentDescription="@string/a_amp_j_logo"-->
+<!--            android:scaleType="fitCenter"/>-->
 
         <Button
-            android:id="@+id/create_account_button"
             android:layout_marginTop="30dp"
+            android:id="@+id/create_account_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/create_an_account" />
+
         <Button
             android:id="@+id/login_button"
             android:layout_marginTop="10dp"
