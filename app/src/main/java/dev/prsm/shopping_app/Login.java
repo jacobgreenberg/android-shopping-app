@@ -57,7 +57,7 @@ public class Login extends AppCompatActivity
                     getSharedPreferences("USER_DATA", MODE_PRIVATE).edit();
             editor.putString("email", email);
             editor.apply();
-            startActivity(new Intent(this, LoginSuccess.class));
+            startActivity(new Intent(this, Shop.class));
         }
 
         else

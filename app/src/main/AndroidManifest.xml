@@ -29,7 +29,7 @@
             android:label="Login">
 
         </activity>
-        <activity android:name=".LoginSuccess">
+        <activity android:name=".Shop">
 
         </activity>
     </application>

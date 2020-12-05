@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+   <androidx.gridlayout.widget.GridLayout
+       android:id="@+id/shopping_grid"
+       xmlns:grid="http://schemas.android.com/apk/res-auto"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:padding="4dp"
+       grid:alignmentMode="alignBounds"
+       grid:columnCount="2"
+       grid:rowOrderPreserved="false"
+       grid:useDefaultMargins="true">
+
+<!--       <ImageView-->
+<!--           android:layout_width="200dp"-->
+<!--           android:layout_height="100dp"-->
+<!--           android:src="@drawable/hat1"/>-->
+
+<!--       <ImageView-->
+<!--           android:layout_width="200dp"-->
+<!--           android:layout_height="100dp"-->
+<!--           android:src="@drawable/hoodie1"/>-->
+
+<!--       <TextView-->
+<!--           android:layout_height="fill_parent"-->
+<!--           android:layout_width="wrap_content"-->
+<!--           android:maxLines="2"-->
+<!--           android:lines="2"-->
+<!--           android:textSize="20sp"-->
+<!--           android:text="Blue Hat\n$2.00"-->
+<!--           android:textStyle="bold"-->
+<!--           grid:layout_gravity="center"/>-->
+<!--       <TextView-->
+<!--           android:layout_height="fill_parent"-->
+<!--           android:layout_width="wrap_content"-->
+<!--           android:maxLines="2"-->
+<!--           android:lines="2"-->
+<!--           android:textSize="20sp"-->
+<!--           android:textStyle="bold"-->
+
+<!--           android:text="Grey Hoodie\n$600.00"-->
+<!--           grid:layout_gravity="center"/>-->
+
+<!--       <Button-->
+<!--           android:minHeight="0dp"-->
+<!--           android:minWidth="0dp"-->
+<!--           android:gravity="center"-->
+<!--           android:text="add to cart"-->
+<!--           grid:layout_gravity="center"/>-->
+
+<!--       <Button-->
+<!--           android:minHeight="0dp"-->
+<!--           android:minWidth="0dp"-->
+<!--           android:gravity="center"-->
+<!--           android:text="add to cart"-->
+<!--           grid:layout_gravity="center"/>-->
+
+
+
+
+<!--       <TextView-->
+<!--           android:layout_width="0dp"-->
+<!--           android:layout_height="100dp"-->
+<!--           grid:layout_columnWeight="1"-->
+<!--           grid:layout_gravity="fill_horizontal"-->
+<!--           android:gravity="center"-->
+<!--           android:background="#FF33B5E5"-->
+<!--           android:text="Tile1" />-->
+
+<!--       <TextView-->
+<!--           android:layout_width="0dp"-->
+<!--           android:layout_height="100dp"-->
+<!--           grid:layout_columnWeight="1"-->
+<!--           grid:layout_gravity="fill_horizontal"-->
+<!--           android:gravity="center"-->
+<!--           android:background="#FF33B5E5"-->
+<!--           android:text="Tile1" />-->
+
+
+   </androidx.gridlayout.widget.GridLayout>
+
+
+</ScrollView>
