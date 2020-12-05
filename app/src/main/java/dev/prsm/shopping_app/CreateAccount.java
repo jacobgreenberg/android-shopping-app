@@ -24,7 +24,6 @@ public class CreateAccount extends AppCompatActivity
     public static final String URL =
             "http://jmgreenberg.cs.loyola.edu/shopping_app/create_account.php";
     private String email = "";
-
     int passLength = 0;
 
     @Override
@@ -66,7 +65,6 @@ public class CreateAccount extends AppCompatActivity
         {
             EditText editTextEmail = findViewById(R.id.create_account_email);
             EditText editTextPasswordAgain = findViewById(R.id.create_account_password_again);
-
             email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
             String passwordAgain = editTextPasswordAgain.getText().toString();
@@ -77,30 +75,21 @@ public class CreateAccount extends AppCompatActivity
                     1000, TimeUnit.MILLISECONDS, queue);
 
             if (isValidEmail(email))
-            {
                 if (passLength > 8)
-                {
-
                     if (password.equals(passwordAgain))
                     {
                         displayError("", HIDE);
                         CreateAccountTask task = new CreateAccountTask(this, email, password);
                         taskPool.execute(task);
                     }
-
                     else
                         displayError("Passwords do not match", SHOW);
-                }
-
                 else
                     displayError("Password length too short", SHOW);
-            }
-
             else
                 displayError("Invalid email address", SHOW);
         });
     }
-
 
     public static boolean isValidEmail(CharSequence target)
     {
