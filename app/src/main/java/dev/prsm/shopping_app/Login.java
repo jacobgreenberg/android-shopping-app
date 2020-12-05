@@ -2,6 +2,7 @@ package dev.prsm.shopping_app;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,6 +19,7 @@ public class Login extends AppCompatActivity
 {
     public static final String URL =
             "http://jmgreenberg.cs.loyola.edu/shopping_app/login.php";
+    private String email = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -31,7 +33,7 @@ public class Login extends AppCompatActivity
         {
             EditText editTextEmail = findViewById(R.id.login_email);
             EditText editTextPassword = findViewById(R.id.login_password);
-            String email = editTextEmail.getText().toString();
+            email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
 
             LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
@@ -50,7 +52,13 @@ public class Login extends AppCompatActivity
         Log.v("MA", "RETURN: " + postReturn);
 
         if (postReturn.equals("0"))
+        {
+            @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor =
+                    getSharedPreferences("USER_DATA", MODE_PRIVATE).edit();
+            editor.putString("email", email);
+            editor.apply();
             startActivity(new Intent(this, LoginSuccess.class));
+        }
 
         else
         {

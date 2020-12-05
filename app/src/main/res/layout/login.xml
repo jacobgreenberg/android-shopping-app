@@ -19,7 +19,7 @@
             android:textSize="35sp"
             android:fontFamily="sans-serif"
             android:textStyle="bold"
-            android:textColor="@color/primary"/>
+            android:textColor="@color/navy"/>
 
         <EditText
             android:id="@+id/login_email"

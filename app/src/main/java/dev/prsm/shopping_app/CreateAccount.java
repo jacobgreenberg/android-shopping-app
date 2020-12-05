@@ -2,6 +2,7 @@ package dev.prsm.shopping_app;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -22,6 +23,7 @@ public class CreateAccount extends AppCompatActivity
     final int HIDE = 0;
     public static final String URL =
             "http://jmgreenberg.cs.loyola.edu/shopping_app/create_account.php";
+    private String email = "";
 
     int passLength = 0;
 
@@ -65,7 +67,7 @@ public class CreateAccount extends AppCompatActivity
             EditText editTextEmail = findViewById(R.id.create_account_email);
             EditText editTextPasswordAgain = findViewById(R.id.create_account_password_again);
 
-            String email = editTextEmail.getText().toString();
+            email = editTextEmail.getText().toString();
             String password = editTextPassword.getText().toString();
             String passwordAgain = editTextPasswordAgain.getText().toString();
 
@@ -73,8 +75,6 @@ public class CreateAccount extends AppCompatActivity
             ThreadPoolExecutorCreateClass taskPool = new ThreadPoolExecutorCreateClass(
                     1,1,
                     1000, TimeUnit.MILLISECONDS, queue);
-
-
 
             if (isValidEmail(email))
             {
@@ -119,7 +119,13 @@ public class CreateAccount extends AppCompatActivity
             });
 
         else
+        {
+            @SuppressLint("CommitPrefEdits") SharedPreferences.Editor editor =
+                    getSharedPreferences("USER_DATA", MODE_PRIVATE).edit();
+            editor.putString("email", email);
+            editor.apply();
             startActivity(new Intent(this, LoginSuccess.class));
+        }
     }
 
     public void displayError(String error, int show)
