@@ -14,16 +14,16 @@ public class Warehouse
 
     void buildWarehouse()
     {
-        warehouse.add(new Item("Egyptian Hat", "hat1", 24.99));
-        warehouse.add(new Item("Salamander Beenie", "hat2", 19.99));
-        warehouse.add(new Item("Iron Hoodie", "hoodie1", 74.99));
-        warehouse.add(new Item("Salmon Hoodie", "hoodie2", 84.99));
-        warehouse.add(new Item("Obsidian Jacket", "jacket1", 2499.99));
-        warehouse.add(new Item("Desire Jacket", "jacket2", 899.99));
-        warehouse.add(new Item("Avocado Pants", "pants1", 57.99));
-        warehouse.add(new Item("Camel Pants", "pants2", 549.99));
-        warehouse.add(new Item("Cornsilk Shirt", "tshirt1", 34.99));
-        warehouse.add(new Item("Rhubarb Shirt", "tshirt2", 29.99));
+        warehouse.add(new Item("Egyptian Hat", "egyptian_hat", 24.99));
+        warehouse.add(new Item("Salamander Hat", "salamander_hat", 19.99));
+        warehouse.add(new Item("Iron Hoodie", "iron_hoodie", 74.99));
+        warehouse.add(new Item("Salmon Hoodie", "salmon_hoodie", 84.99));
+        warehouse.add(new Item("Obsidian Jacket", "obsidian_jacket", 2499.99));
+        warehouse.add(new Item("Desire Jacket", "desire_jacket", 899.99));
+        warehouse.add(new Item("Avocado Pants", "avocado_pants", 57.99));
+        warehouse.add(new Item("Camel Pants", "camel_pants", 549.99));
+        warehouse.add(new Item("Cornsilk Shirt", "cornsilk_shirt", 34.99));
+        warehouse.add(new Item("Rain Shirt", "rain_shirt", 29.99));
     }
 
     List<Item> getWarehouse()

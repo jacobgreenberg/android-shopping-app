@@ -11,8 +11,6 @@ import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity
 {
-    private Intent intent;
-
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -21,17 +19,15 @@ public class MainActivity extends AppCompatActivity
 
         Button createAccount = findViewById(R.id.create_account_button);
         Button login = findViewById(R.id.login_button);
+        Button gridLayout = findViewById(R.id.grid_button);
+
+        gridLayout.setOnClickListener((View v) ->
+                startActivity(new Intent(this, Shop.class)));
 
         createAccount.setOnClickListener((View v) ->
-        {
-            intent = new Intent(this, CreateAccount.class);
-            startActivity(intent);
-        });
+                startActivity(new Intent(this, CreateAccount.class)));
 
         login.setOnClickListener((View v) ->
-        {
-            intent = new Intent(this, Login.class);
-            startActivity(intent);
-        });
+                startActivity(new Intent(this, Login.class)));
     }
 }
