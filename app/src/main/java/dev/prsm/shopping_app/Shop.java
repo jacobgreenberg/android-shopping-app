@@ -22,6 +22,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.gridlayout.widget.GridLayout;
@@ -130,10 +131,15 @@ public class Shop extends AppCompatActivity
             textView.setGravity(Gravity.CENTER);
             layout.addView(textView);
 
-            Button button = new Button(this);
-            button.setText("Add To Cart");
-            button.setOnClickListener((View v) -> cart.add(item));
-            layout.addView(button);
+            Button addButton = new Button(this);
+            addButton.setText("Add To Cart");
+            addButton.setOnClickListener((View v) ->
+            {
+                cart.add(item);
+                Toast.makeText(this, item.name + " added to cart!",
+                        Toast.LENGTH_SHORT).show();
+            });
+            layout.addView(addButton);
 
             gridLayout.addView(layout);
         }
