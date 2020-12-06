@@ -45,7 +45,10 @@ public class ViewCart extends AppCompatActivity
         nf = NumberFormat.getCurrencyInstance();
         Log.v("MA", "TOTAL: " + nf.format(calculatedTotal));
         buildLayout();
+        getWindow().getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
+
 
 
     double getTotal()
