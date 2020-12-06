@@ -38,18 +38,19 @@ public class Shop extends AppCompatActivity
     private String email;
     private Warehouse warehouse;
     private ArrayList<Item> cart;
-
+    private NumberFormat nf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop);
-        setTitle(getEmail());
+        email = getEmail();
+        setTitle(email);
         warehouse = new Warehouse();
         cart = new ArrayList<>();
         warehouse.buildWarehouse();
-
+        nf = NumberFormat.getCurrencyInstance();
 
         buildGridLayout();
     }
@@ -94,7 +95,6 @@ public class Shop extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     void buildGridLayout()
     {
-        NumberFormat nf = NumberFormat.getCurrencyInstance();
         Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
         int screenWidth = size.x;
@@ -136,12 +136,11 @@ public class Shop extends AppCompatActivity
             layout.addView(button);
 
             gridLayout.addView(layout);
-
         }
-
     }
 
-    public static int getImageId(Context context, String imageName) {
+    public static int getImageId(Context context, String imageName)
+    {
         return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
     }
 
