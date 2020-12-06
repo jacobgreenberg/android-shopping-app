@@ -2,14 +2,21 @@ package dev.prsm.shopping_app;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.media.Image;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.text.ParcelableSpan;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -21,13 +28,17 @@ import androidx.gridlayout.widget.GridLayout;
 
 import org.w3c.dom.Text;
 
+import java.io.Serializable;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Shop extends AppCompatActivity
 {
     private String email;
-    private  List<Item> rack;
+    private Warehouse warehouse;
+    private ArrayList<Item> cart;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -35,10 +46,35 @@ public class Shop extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.shop);
         setTitle(getEmail());
-        Warehouse warehouse = new Warehouse();
+        warehouse = new Warehouse();
+        cart = new ArrayList<>();
         warehouse.buildWarehouse();
-        rack = warehouse.getWarehouse();
+
+
         buildGridLayout();
+    }
+
+    @SuppressLint("ResourceType")
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.cart_button)
+        {
+            Intent intent = new Intent(this, ViewCart.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelableArrayList("Cart", cart);
+            intent.putExtras(bundle);
+            startActivityForResult(intent, 1);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     String getEmail()
@@ -67,15 +103,16 @@ public class Shop extends AppCompatActivity
         int quarterHeight = screenHeight / 4;
         GridLayout gridLayout = findViewById(R.id.shopping_grid);
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
-        gridLayout.setColumnCount(2);
         params.width = screenWidth;
         params.height = screenHeight;
+
+        List<Item> rack = warehouse.getWarehouse();
 
         for (Item item : rack)
         {
             LinearLayout layout = new LinearLayout(this);
             LinearLayout.LayoutParams layoutParams =
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 0);
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, 0);
             layout.setOrientation(LinearLayout.VERTICAL);
 
             ImageView imageView = new ImageView(this);
@@ -88,21 +125,33 @@ public class Shop extends AppCompatActivity
 
             TextView textView = new TextView(this);
             textView.setText(item.name + "\n" + nf.format(item.price));
-            textView.setTypeface(textView.getTypeface(), Typeface.BOLD_ITALIC);
+            textView.setTypeface(textView.getTypeface(), Typeface.BOLD);
             textView.setLayoutParams(layoutParams);
             textView.setGravity(Gravity.CENTER);
             layout.addView(textView);
 
             Button button = new Button(this);
             button.setText("Add To Cart");
+            button.setOnClickListener((View v) -> cart.add(item));
             layout.addView(button);
 
-
             gridLayout.addView(layout);
+
         }
+
     }
 
     public static int getImageId(Context context, String imageName) {
         return context.getResources().getIdentifier("drawable/" + imageName, null, context.getPackageName());
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == RESULT_OK)
+        {
+            Bundle bundle = data.getExtras();
+            cart = bundle.getParcelableArrayList("Cart");
+        }
     }
 }

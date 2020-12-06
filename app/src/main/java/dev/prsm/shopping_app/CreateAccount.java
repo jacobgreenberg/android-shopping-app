@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -98,6 +99,7 @@ public class CreateAccount extends AppCompatActivity
     @SuppressLint("SetTextI18n")
     public void updateView(String postReturn)
     {
+        Log.v("MA", "POST: " + postReturn);
         if (!postReturn.equals("1"))
             runOnUiThread(() ->
             {
