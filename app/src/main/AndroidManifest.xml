@@ -39,6 +39,10 @@
             android:label="Cart">
 
         </activity>
+        <activity android:name=".OrderConfirm"
+            android:label="Order Confirmed" >
+
+        </activity>
     </application>
 
 </manifest>
