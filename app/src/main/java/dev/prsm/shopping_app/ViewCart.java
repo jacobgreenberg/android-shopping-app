@@ -148,7 +148,6 @@ public class ViewCart extends AppCompatActivity
                 MailConfirmTask task = new MailConfirmTask(this, email, cart,
                         calculatedTotal);
                 taskPool.execute(task);
-                clearCart();
                 startActivity(new Intent(this, OrderConfirm.class));
                 overridePendingTransition(R.anim.top_to_bottom, 0);
             });
