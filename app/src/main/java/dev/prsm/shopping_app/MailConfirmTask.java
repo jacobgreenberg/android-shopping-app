@@ -1,7 +1,6 @@
 package dev.prsm.shopping_app;
 
 import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -9,32 +8,55 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.text.NumberFormat;
+import java.util.ArrayList;
 
-class CreateAccountTask extends Thread
+
+public class MailConfirmTask extends Thread
 {
-    private final CreateAccount createAccount;
+    private final ViewCart viewCart;
     protected String email;
-    protected String password;
+    protected ArrayList<Item> cart;
+    protected double calculatedTotal;
+    private String data = "data=";
     private String result;
+    protected NumberFormat nf;
 
-    public CreateAccountTask(CreateAccount fromCreateAccount, String email, String password)
+
+    public MailConfirmTask(ViewCart fromViewCart, String email, ArrayList<Item> cart,
+                           double calculatedTotal)
     {
-        createAccount = fromCreateAccount;
+        viewCart = fromViewCart;
         this.email = email;
-        this.password = password;
+        this.cart = cart;
+        this.calculatedTotal = calculatedTotal;
+        nf = NumberFormat.getCurrencyInstance();
+    }
+
+    void createDataString()
+    {
+        StringBuilder sb = new StringBuilder(email);
+
+        for (Item item : cart)
+            sb.append(";").append(item.name).append(": ").append(nf.format(item.price));
+
+        sb.append(";").append("Total: ").append(nf.format(calculatedTotal));
+        data += sb.toString();
     }
 
     public void run()
     {
+        createDataString();
+
         try
         {
-            URL url = new URL(CreateAccount.URL);
+            URL url = new URL(ViewCart.URL);
             URLConnection connection = url.openConnection();
             connection.setDoOutput(true);
             OutputStream outputStream = connection.getOutputStream();
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(outputStream);
 
-            outputStreamWriter.write("email=" + email + "&password=" + password);
+            outputStreamWriter.write(data);
             outputStreamWriter.flush();
 
             InputStream inputStream = connection.getInputStream();
@@ -48,7 +70,7 @@ class CreateAccountTask extends Thread
                 postReturn.append(line);
 
             result = postReturn.toString();
-
+            
         } catch (Exception e)
         {
             Log.v("MA", e.getMessage());
@@ -57,6 +79,6 @@ class CreateAccountTask extends Thread
 
     public void updateView()
     {
-        createAccount.updateView(result);
+        viewCart.updateView(result);
     }
 }

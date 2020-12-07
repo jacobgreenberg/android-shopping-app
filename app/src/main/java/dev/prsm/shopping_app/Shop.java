@@ -39,7 +39,7 @@ public class Shop extends AppCompatActivity
     protected String email;
     private Warehouse warehouse;
     private ArrayList<Item> cart;
-    private NumberFormat nf;
+    protected NumberFormat nf;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)

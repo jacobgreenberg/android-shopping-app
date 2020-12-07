@@ -71,8 +71,7 @@ public class CreateAccount extends AppCompatActivity
 
             LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
             ThreadPoolExecutorCreateClass taskPool = new ThreadPoolExecutorCreateClass(
-                    1,1,
-                    1000, TimeUnit.MILLISECONDS, queue);
+                    1,1, 1000, TimeUnit.MILLISECONDS, queue);
 
             if (isValidEmail(email))
                 if (passLength > 8)

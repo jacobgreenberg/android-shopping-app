@@ -29,6 +29,8 @@ import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.TimeUnit;
 
 public class ViewCart extends AppCompatActivity
 {
@@ -37,6 +39,9 @@ public class ViewCart extends AppCompatActivity
     private NumberFormat nf;
     private String email;
     private LinearLayout linearLayout;
+
+    public static final String URL =
+            "http://jmgreenberg.cs.loyola.edu/shopping_app/mail_confirm.php";
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
@@ -116,11 +121,6 @@ public class ViewCart extends AppCompatActivity
         totalPrice.setTypeface(totalPrice.getTypeface(), Typeface.BOLD);
         linearLayout.addView(totalPrice);
 
-        Button purchase = new Button(this);
-        purchase.setText("purchase");
-        purchase.setOnClickListener((View v) -> Log.v("MA", "CHECKING OUT"));
-        linearLayout.addView(purchase);
-
         Button goBack = new Button(this);
         goBack.setText("go back");
         goBack.setOnClickListener((View v) ->
@@ -136,11 +136,26 @@ public class ViewCart extends AppCompatActivity
 
         linearLayout.addView(goBack);
 
-        Button clearCart = new Button(this);
-        clearCart.setText("clear cart");
-        clearCart.setOnClickListener((View v) -> clearCart());
+        if (calculatedTotal > 0.00)
+        {
+            Button purchase = new Button(this);
+            purchase.setText("purchase");
+            purchase.setOnClickListener((View v) ->
+            {
+                LinkedBlockingQueue<Runnable> queue = new LinkedBlockingQueue<>();
+                ThreadPoolExecutorMailConfirm taskPool = new ThreadPoolExecutorMailConfirm(
+                        1, 1, 1000, TimeUnit.MILLISECONDS, queue);
+                MailConfirmTask task = new MailConfirmTask(this, email, cart,
+                        calculatedTotal);
+                taskPool.execute(task);
+            });
+            linearLayout.addView(purchase);
 
-        linearLayout.addView(clearCart);
+            Button clearCart = new Button(this);
+            clearCart.setText("clear cart");
+            clearCart.setOnClickListener((View v) -> clearCart());
+            linearLayout.addView(clearCart);
+        }
     }
 
     String getColoredSpanned(String text, String color)
@@ -154,5 +169,10 @@ public class ViewCart extends AppCompatActivity
         calculatedTotal = 0.00;
         linearLayout.removeAllViews();
         buildLayout();
+    }
+
+    void updateView(String result)
+    {
+        Log.v("MA", "RESPONSE: " + result);
     }
 }
