@@ -36,7 +36,7 @@ import java.util.List;
 
 public class Shop extends AppCompatActivity
 {
-    private String email;
+    protected String email;
     private Warehouse warehouse;
     private ArrayList<Item> cart;
     private NumberFormat nf;
@@ -73,6 +73,7 @@ public class Shop extends AppCompatActivity
             Bundle bundle = new Bundle();
             bundle.putParcelableArrayList("Cart", cart);
             intent.putExtras(bundle);
+            intent.putExtra("email", email);
             startActivityForResult(intent, 1);
         }
 

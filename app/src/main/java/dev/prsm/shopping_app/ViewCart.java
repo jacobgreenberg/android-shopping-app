@@ -3,6 +3,7 @@ package dev.prsm.shopping_app;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -18,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import org.w3c.dom.Text;
@@ -32,7 +34,10 @@ public class ViewCart extends AppCompatActivity
     private ArrayList<Item> cart;
     private double calculatedTotal;
     private NumberFormat nf;
+    private String email;
+    private LinearLayout linearLayout;
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState)
     {
@@ -41,6 +46,8 @@ public class ViewCart extends AppCompatActivity
 
         Bundle bundle = getIntent().getExtras();
         cart = bundle.getParcelableArrayList("Cart");
+        email = getIntent().getStringExtra("email");
+        setTitle(email);
         calculatedTotal = getTotal();
         nf = NumberFormat.getCurrencyInstance();
         Log.v("MA", "TOTAL: " + nf.format(calculatedTotal));
@@ -48,7 +55,6 @@ public class ViewCart extends AppCompatActivity
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
-
 
 
     double getTotal()
@@ -68,8 +74,10 @@ public class ViewCart extends AppCompatActivity
         int screenWidth = size.x;
         int screenHeight = size.y;
         int halfWidth = screenWidth / 2;
-        LinearLayout linearLayout = findViewById(R.id.linear_layout);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        linearLayout = findViewById(R.id.linear_layout);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
         linearLayout.requestLayout();
         linearLayout.getLayoutParams().height = screenHeight;
         linearLayout.getLayoutParams().width = halfWidth;
@@ -127,13 +135,7 @@ public class ViewCart extends AppCompatActivity
 
         Button clearCart = new Button(this);
         clearCart.setText("clear cart");
-        clearCart.setOnClickListener((View v) ->
-        {
-            cart.clear();
-            calculatedTotal = 0.00;
-            linearLayout.removeAllViews();
-            buildLayout();
-        });
+        clearCart.setOnClickListener((View v) -> clearCart());
 
         linearLayout.addView(clearCart);
     }
@@ -141,5 +143,13 @@ public class ViewCart extends AppCompatActivity
     String getColoredSpanned(String text, String color)
     {
         return "<font color=" + color + ">" + text + "</font>";
+    }
+
+    void clearCart()
+    {
+        cart.clear();
+        calculatedTotal = 0.00;
+        linearLayout.removeAllViews();
+        buildLayout();
     }
 }
