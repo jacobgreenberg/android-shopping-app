@@ -12,8 +12,10 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.Shopping_app">
-        <activity android:name=".MainActivity"
-            android:label="A&amp;J Mobile">
+
+        <activity
+            android:label="A&amp;J Mobile"
+            android:name=".MainActivity">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

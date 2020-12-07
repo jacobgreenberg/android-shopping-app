@@ -58,6 +58,7 @@ public class Login extends AppCompatActivity
             editor.putString("email", email);
             editor.apply();
             startActivity(new Intent(this, Shop.class));
+            overridePendingTransition(R.anim.bottom_to_top, 0);
         }
 
         else

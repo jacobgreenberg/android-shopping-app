@@ -1,5 +1,6 @@
 package dev.prsm.shopping_app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Typeface;
@@ -67,6 +68,7 @@ public class ViewCart extends AppCompatActivity
         return total;
     }
 
+    @SuppressLint("SetTextI18n")
     void buildLayout()
     {
         Point size = new Point();
@@ -114,10 +116,10 @@ public class ViewCart extends AppCompatActivity
         totalPrice.setTypeface(totalPrice.getTypeface(), Typeface.BOLD);
         linearLayout.addView(totalPrice);
 
-        Button checkout = new Button(this);
-        checkout.setText("checkout");
-        checkout.setOnClickListener((View v) -> Log.v("MA", "CHECKING OUT"));
-        linearLayout.addView(checkout);
+        Button purchase = new Button(this);
+        purchase.setText("purchase");
+        purchase.setOnClickListener((View v) -> Log.v("MA", "CHECKING OUT"));
+        linearLayout.addView(purchase);
 
         Button goBack = new Button(this);
         goBack.setText("go back");
@@ -129,6 +131,7 @@ public class ViewCart extends AppCompatActivity
             intent.putExtras(bundle);
             setResult(RESULT_OK, intent);
             finish();
+            overridePendingTransition(R.anim.top_to_bottom, 0);
         });
 
         linearLayout.addView(goBack);

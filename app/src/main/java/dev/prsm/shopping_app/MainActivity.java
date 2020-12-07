@@ -7,7 +7,6 @@ import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -21,13 +20,23 @@ public class MainActivity extends AppCompatActivity
         Button login = findViewById(R.id.login_button);
         Button gridLayout = findViewById(R.id.grid_button);
 
+
         gridLayout.setOnClickListener((View v) ->
-                startActivity(new Intent(this, Shop.class)));
+        {
+            startActivity(new Intent(this, Shop.class));
+            overridePendingTransition(R.anim.bottom_to_top, 0);
+        });
 
         createAccount.setOnClickListener((View v) ->
-                startActivity(new Intent(this, CreateAccount.class)));
+        {
+            startActivity(new Intent(this, CreateAccount.class));
+            overridePendingTransition(R.anim.bottom_to_top, 0);
+        });
 
         login.setOnClickListener((View v) ->
-                startActivity(new Intent(this, Login.class)));
+        {
+            startActivity(new Intent(this, Login.class));
+            overridePendingTransition(R.anim.bottom_to_top, 0);
+        });
     }
 }

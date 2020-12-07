@@ -58,7 +58,8 @@ public class Shop extends AppCompatActivity
 
     @SuppressLint("ResourceType")
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
         getMenuInflater().inflate(R.menu.menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -75,6 +76,7 @@ public class Shop extends AppCompatActivity
             intent.putExtras(bundle);
             intent.putExtra("email", email);
             startActivityForResult(intent, 1);
+            overridePendingTransition(R.anim.bottom_to_top, 0);
         }
 
         return super.onOptionsItemSelected(item);
@@ -121,8 +123,8 @@ public class Shop extends AppCompatActivity
             imageView.setImageResource(getImageId(this, item.path));
             imageView.setLayoutParams(layoutParams);
             imageView.requestLayout();
-            imageView.getLayoutParams().height = quarterHeight;
-            imageView.getLayoutParams().width = halfWidth;
+            imageView.getLayoutParams().height = 100;
+            imageView.getLayoutParams().width = halfWidth - 25;
             layout.addView(imageView);
 
             TextView textView = new TextView(this);
