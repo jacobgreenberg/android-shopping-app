@@ -26,13 +26,6 @@ public class MainActivity extends AppCompatActivity
 
         Button createAccount = findViewById(R.id.create_account_button);
         Button login = findViewById(R.id.login_button);
-        Button gridLayout = findViewById(R.id.grid_button);
-
-        gridLayout.setOnClickListener((View v) ->
-        {
-            startActivity(new Intent(this, Shop.class));
-            overridePendingTransition(R.anim.bottom_to_top, 0);
-        });
 
         createAccount.setOnClickListener((View v) ->
         {
@@ -63,7 +56,7 @@ public class MainActivity extends AppCompatActivity
                 Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
                 emailIntent.setType("plain/text");
                 emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"prsm.forms@gmail.com"});
-                startActivity(Intent.createChooser(emailIntent, "Mail sent!"));
+                startActivity(Intent.createChooser(emailIntent, "mail send"));
                 return true;
             case R.id.about_us:
                 startActivity(new Intent(this, AboutUs.class));
