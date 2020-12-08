@@ -7,7 +7,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -45,27 +47,33 @@ public class MainActivity extends AppCompatActivity
         });
     }
 
-    @SuppressLint("ResourceType")
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        int id = item.getItemId();
-
-        if (id == R.id.mail_button)
-        {
-            Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
-            emailIntent.setType("plain/text");
-            emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"prsm.forms@gmail.com"});
-            startActivity(Intent.createChooser(emailIntent, "Mail sent!"));
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.mail:
+                Intent emailIntent = new Intent(android.content.Intent.ACTION_SEND);
+                emailIntent.setType("plain/text");
+                emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"prsm.forms@gmail.com"});
+                startActivity(Intent.createChooser(emailIntent, "Mail sent!"));
+                return true;
+            case R.id.about_us:
+                startActivity(new Intent(this, AboutUs.class));
+                overridePendingTransition(R.anim.top_to_bottom, 0);
+                return true;
+            case R.id.privacy_policy:
+                startActivity(new Intent(this, PrivacyPolicy.class));
+                overridePendingTransition(R.anim.top_to_bottom, 0);
+            default:
+                return super.onContextItemSelected(item);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }

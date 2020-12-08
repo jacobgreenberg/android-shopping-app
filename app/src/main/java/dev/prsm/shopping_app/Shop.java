@@ -59,9 +59,7 @@ public class Shop extends AppCompatActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
-        int id = item.getItemId();
-
-        if (id == R.id.cart_button)
+        if (item.getItemId() == R.id.cart_button)
         {
             Intent intent = new Intent(this, ViewCart.class);
             Bundle bundle = new Bundle();

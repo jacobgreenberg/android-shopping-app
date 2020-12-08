@@ -43,6 +43,14 @@
             android:label="Order Confirmed" >
 
         </activity>
+        <activity android:name=".AboutUs"
+            android:label="@string/about_us">
+
+        </activity>
+        <activity android:name=".PrivacyPolicy"
+            android:label="@string/privacy_policy">
+
+        </activity>
     </application>
 
 </manifest>
