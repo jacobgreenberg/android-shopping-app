@@ -78,7 +78,8 @@ public class CreateAccount extends AppCompatActivity
                     if (password.equals(passwordAgain))
                     {
                         displayError("", HIDE);
-                        CreateAccountTask task = new CreateAccountTask(this, email, password);
+                        CreateAccountTask task = new CreateAccountTask(this,
+                                email, password);
                         taskPool.execute(task);
                     }
                     else

@@ -44,7 +44,6 @@ public class Shop extends AppCompatActivity
         cart = new ArrayList<>();
         warehouse.buildWarehouse();
         nf = NumberFormat.getCurrencyInstance();
-
         buildGridLayout();
     }
 
@@ -95,7 +94,6 @@ public class Shop extends AppCompatActivity
         int screenWidth = size.x;
         int screenHeight = size.y;
         int halfWidth = screenWidth / 2;
-        int quarterHeight = screenHeight / 4;
         GridLayout gridLayout = findViewById(R.id.shopping_grid);
         GridLayout.LayoutParams params = new GridLayout.LayoutParams();
         params.width = screenWidth;
@@ -133,8 +131,8 @@ public class Shop extends AppCompatActivity
                 Toast.makeText(this, item.name + " added to cart!",
                         Toast.LENGTH_SHORT).show();
             });
-            layout.addView(addButton);
 
+            layout.addView(addButton);
             gridLayout.addView(layout);
         }
     }

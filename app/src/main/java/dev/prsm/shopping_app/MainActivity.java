@@ -1,20 +1,14 @@
 package dev.prsm.shopping_app;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-
-import java.io.FileReader;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -23,7 +17,6 @@ public class MainActivity extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         Button createAccount = findViewById(R.id.create_account_button);
         Button login = findViewById(R.id.login_button);
 

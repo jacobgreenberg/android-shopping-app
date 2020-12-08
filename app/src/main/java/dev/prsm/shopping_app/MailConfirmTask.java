@@ -22,7 +22,6 @@ public class MailConfirmTask extends Thread
     private String result;
     protected NumberFormat nf;
 
-
     public MailConfirmTask(ViewCart fromViewCart, String email, ArrayList<Item> cart,
                            double calculatedTotal)
     {

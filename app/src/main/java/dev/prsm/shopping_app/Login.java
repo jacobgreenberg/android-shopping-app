@@ -26,7 +26,6 @@ public class Login extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
-
         Button submit = findViewById(R.id.login_submit);
 
         submit.setOnClickListener((View v) ->

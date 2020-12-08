@@ -6,29 +6,19 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
-import android.os.TestLooperManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.w3c.dom.Text;
-
-import java.io.Serializable;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -39,7 +29,6 @@ public class ViewCart extends AppCompatActivity
     private NumberFormat nf;
     private String email;
     private LinearLayout linearLayout;
-
     public static final String URL =
             "http://jmgreenberg.cs.loyola.edu/shopping_app/mail_confirm.php";
 
@@ -61,7 +50,6 @@ public class ViewCart extends AppCompatActivity
         getWindow().getDecorView().setSystemUiVisibility(
                 View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
-
 
     double getTotal()
     {
@@ -111,6 +99,7 @@ public class ViewCart extends AppCompatActivity
                         linearLayout.removeAllViews();
                         buildLayout();
                     });
+
             linearLayout.addView(removeButton);
         }
 
@@ -151,8 +140,8 @@ public class ViewCart extends AppCompatActivity
                 startActivity(new Intent(this, OrderConfirm.class));
                 overridePendingTransition(R.anim.top_to_bottom, 0);
             });
-            linearLayout.addView(purchase);
 
+            linearLayout.addView(purchase);
             Button clearCart = new Button(this);
             clearCart.setText("clear cart");
             clearCart.setOnClickListener((View v) -> clearCart());
