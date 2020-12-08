@@ -82,7 +82,6 @@ public class ViewCart extends AppCompatActivity
 
         for (Item item : cart)
         {
-
             String name = getColoredSpanned(item.name, "#172b4d");
             String price = getColoredSpanned(nf.format(item.price),"#f5365c");
             TextView itemPrice = new TextView(this);
