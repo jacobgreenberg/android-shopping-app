@@ -16,4 +16,26 @@
     <string name="contact_us">Contact Us</string>
     <string name="about_us">About Us</string>
     <string name="privacy_policy">Privacy Policy</string>
+    <string name="about_us_content">A&amp;J was founded by Jacob Greenberg and Amanda Condron to
+        give customers the feeling of convenience when shopping for their favorite styles.
+        With easy access to designer clothes at the tap of a button, what more could a fashionista
+        want! Our exquisite lines of designer clothes is one of a kind and tailored to the customers
+        needs. One of our newest additions to the line is “Camel Pants”, which have been in high
+        demand with celebrities that shop at our site. The authentic camel leather is imported
+        directly to our stores and made by hand in store. All items are carefully made to meet out
+        consumers satisfaction and are of the highest quality of authentic materials. Our striking
+        line of designer clothes are manufactured ethically and with the newest technology, helping
+        reduce the carbon footprint the clothing industry produces. A&amp;J is a convenient, high end,
+        and eco friendly place to shop.</string>
+    <string name="privacy_policy_content">
+        This application will collect and maintain personal information provided by its users,
+        strictly their email addresses. The information is voluntarily provided by the users to
+        fully access the site and all of its components. This data is valuable to the company for
+        various internal purposes, including troubleshooting and improving the site’s functionality.
+        Returns are available, but only within a 14 day period starting the date and time of shipment.
+        A&amp;J is not responsible to refund customers if returns are after the 14 day window. Worldwide
+        shipping is available. The information provided by the user on this site will be subject to
+        the laws of the United States of America, regardless of location of ordering. A&amp;J uses
+        cookies and other technology to keep track of users interactions our site.
+    </string>
 </resources>
